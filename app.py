@@ -37,7 +37,7 @@ def KeyWord(text):
     for k in KeyWordDict.keys():
         if text.find(k) != -1:
             return [True,KeyWordDict[k]]
-   return [False]
+    return [False]
 
 def Reply(event):
     Ktmp = KeyWord(event.message.text)
