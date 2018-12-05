@@ -47,8 +47,6 @@ def Reply(event):
     else:
         line_bot_api.reply_message(event.reply_token,
              TextSendMessage(text = event.message.text))
-        
-            
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
@@ -58,8 +56,6 @@ def handle_message(event):
     except Exception as e:
         line_bot_api.reply_message(event.reply_token,
              TextSendMessage(text=str(e)))
-
-
 
 import os
 if __name__ == "__main__":
