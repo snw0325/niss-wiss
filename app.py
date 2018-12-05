@@ -44,7 +44,7 @@ def Reply(event):
     if Ktmp[0]:
         line_bot_api.reply_message(event.reply_token,
              TextSendMessage(text = Ktmp[1]))
-        else:
+    else:
         line_bot_api.reply_message(event.reply_token,
              TextSendMessage(text = event.message.text))
         
