@@ -34,7 +34,7 @@ def KeyWord(text):
     KeyWordDict = {"納克":"打野",
                   "中路":"圖倫",
                   "邊線":"瑞克"}
-   for k in KeyWordDict.keys():
+    for k in KeyWordDict.keys():
         if text.find(k) != -1:
             return [True,KeyWordDict[k]]
    return [False]
