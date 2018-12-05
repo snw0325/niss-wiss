@@ -30,15 +30,32 @@ def callback():
         abort(400)
     return 'OK'
 
+def KeyWord(text):
+    KeyWordDict = {"納克":"打野"，
+                  "中路":"圖倫"，
+                  "邊線":"瑞克"}
+   for k in KeyWordDict.keys():
+        if text.find(k) != -1:
+            return [True,KeyWordDict[k]]
+   return [False]
+
+def Reply(event):
+    Ktmp = KeyWord(event.message.text)
+    if Ktmp[0]:
+        line_bot_api.reply_message(event.reply_token，
+             TextSendMessage(text = Ktmp[1]))
+        else:
+        line_bot_api.reply_message(event.reply_token，
+             TextSendMessage(text = event.message.text))
+        
+            
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = TextSendMessage(text = Reply(event.message.text))
     line_bot_api.reply_message(event.reply_token, message)
 
-def Reply(text):
-    if text == "hi":
-        return "hello"
 
 
 import os
