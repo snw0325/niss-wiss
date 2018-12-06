@@ -38,7 +38,33 @@ def KeyWord(text):
         if text.find(k) != -1:
             return [True,KeyWordDict[k]]
     return [False]
+def Button():
+    message = TemplateSendMessage(
+        alt_text='Buttons template',
+        template=ButtonsTemplate(
+            thumbnail_image_url='https://example.com/image.jpg',
+            title='標題',
+            text='內容',
+             actions=[
+                PostbackTemplateAction(
+                    label='按鈕文字',
+                    text='發話文字',
+                    data='夾帶資料'
+                ),
+                MessageTemplateAction(
+                    label='按鈕文字',
+                    text='發話文字'
+                ),
+                URITemplateAction(
+                    label='按鈕文字',
+                    uri='網址'
+                )
+            ]
+         )
+    )
+    line_bot_api.reply_message(event.reply_token, message)
 
+ 
 def Reply(event):
     Ktmp = KeyWord(event.message.text)
     if Ktmp[0]:
