@@ -43,7 +43,7 @@ def Button(event):
     message = TemplateSendMessage(
         alt_text='Buttons template',
         template=ButtonsTemplate(
-            thumbnail_image_url='https://example.com/image.jpg',
+            thumbnail_image_url='https://github.com/snw0325/niss-wiss/blob/master/33a89ece71e46ed35f738321ec8d62fa1486014888.jpg?raw=true',
             title='標題',
             text='內容',
              actions=[PostbackTemplateAction(label='按鈕文字',text='發話文字',data='夾帶資料'),
