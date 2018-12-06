@@ -31,7 +31,7 @@ def callback():
     return 'OK'
 
 def KeyWord(text):
-    KeyWordDict = {"納克":"打野",
+    KeyWordDict = {"納克":"暴擊流- 獸魂",
                   "中路":"圖倫",
                   "邊線":"瑞克"}
     for k in KeyWordDict.keys():
