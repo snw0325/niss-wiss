@@ -63,6 +63,31 @@ def Reply(event):
         line_bot_api.reply_message(event.reply_token,
              TextSendMessage(text = event.message.text))
 
+def Reply(event):
+    tempText = event.message.text.split(",")
+    if tempText[0] == "發送" and event.source.user_id == "Ue129a6e5ffff890a19d2a4d97ed2974d":
+        line_bot_api.push_message(tempText[1], TextSendMessage(text=tempText[2]))
+    else:
+        Ktemp = KeyWord(event)
+        if Ktemp[0]:
+            line_bot_api.reply_message(event.reply_token,
+                TextSendMessage(text = Ktemp[1]))
+        else:
+            line_bot_api.reply_message(event.reply_token,
+                Button(event))
+
+# 處理訊息
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    try:
+        Reply(event)
+        line_bot_api.push_message("Ue129a6e5ffff890a19d2a4d97ed2974d", TextSendMessage(text=event.source.user_id))
+        line_bot_api.push_message("Ue129a6e5ffff890a19d2a4d97ed2974d", TextSendMessage(text=event.message.text))
+    except Exception as e:
+        line_bot_api.reply_message(event.reply_token, 
+            TextSendMessage(text=str(e)))
+
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
