@@ -46,7 +46,7 @@ def Button(event):
             thumbnail_image_url='https://github.com/snw0325/niss-wiss/blob/master/33a89ece71e46ed35f738321ec8d62fa1486014888.jpg?raw=true',
             title='攻略',
             text='Nakroth',
-             actions=[PostbackTemplateAction(label='坦裝',text='野斧'data='還沒'),
+             actions=[PostbackTemplateAction(label='坦裝',text='野斧',data='還沒'),
                 MessageTemplateAction(label='爆擊流',text='聖劍'),
                 URITemplateAction(label='全裝備網',uri='https://moba.garena.tw/game/props')]
          )
