@@ -46,7 +46,7 @@ def Button(event):
             thumbnail_image_url='https://github.com/snw0325/niss-wiss/blob/master/33a89ece71e46ed35f738321ec8d62fa1486014888.jpg?raw=true',
             title='標題',
             text='內容',
-             actions=[PostbackTemplateAction(label='按鈕文字',text='發話文字',data='夾帶資料'),
+             actions=[PostbackTemplateAction(label='按鈕文字',data='a'),
                 MessageTemplateAction(label='按鈕文字',text='發話文字'),
                 URITemplateAction(label='按鈕文字',uri='https://moba.garena.tw/game/props')]
          )
@@ -77,7 +77,7 @@ def handle_message(event):
 @handler.add(PostbackEvent)
 def handle_postback(event):
     command = enent.postback.data.split(",")
-    if command[0] == "還沒":
+    if command[0] == "a":
         line_bot_api.reply_message(event.reply_token,
             TextMessage(text="還沒就快去練習")) 
 
