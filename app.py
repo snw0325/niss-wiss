@@ -30,48 +30,62 @@ def callback():
         abort(400)
     return 'OK'
 
-def KeyWord(text):
-    KeyWordDict = {"納克":"暴擊流- 獸魂",
-                  "中路":"圖倫",
-                  "邊線":"瑞克"}
+
+#關鍵字系統
+def KeyWord(event):
+    KeyWordDict = {"你好":"你也好啊",
+                   "你是誰":"我是大帥哥",
+                   "帥":"帥炸了",
+                   "差不多了":"讚!!!"}
+
     for k in KeyWordDict.keys():
-        if text.find(k) != -1:
+        if event.message.text.find(k) != -1:
             return [True,KeyWordDict[k]]
     return [False]
 
+#按鈕版面系統
 def Button(event):
-    message = TemplateSendMessage(
-        alt_text='Buttons template',
+    return TemplateSendMessage(
+        alt_text='特殊訊息，請進入手機查看',
         template=ButtonsTemplate(
-            thumbnail_image_url='https://github.com/snw0325/niss-wiss/blob/master/33a89ece71e46ed35f738321ec8d62fa1486014888.jpg?raw=true',
-            title='標題',
-            text='內容',
-             actions=[PostbackTemplateAction(label='按鈕文字',data='a'),
-                MessageTemplateAction(label='按鈕文字',text='發話文字'),
-                URITemplateAction(label='按鈕文字',uri='https://moba.garena.tw/game/props')]
-         )
+            thumbnail_image_url='https://github.com/54bp6cl6/LineBotClass/blob/master/logo.jpg?raw=true',
+            title='HPClub - Line Bot 教學',
+            text='大家學會了ㄇ',
+            actions=[
+                PostbackTemplateAction(
+                    label='還沒',
+                    data='這裡留空就好，不要刪掉'
+                ),
+                MessageTemplateAction(
+                    label='差不多了',
+                    text='差不多了'
+                ),
+                URITemplateAction(
+                    label='幫我們按個讚',
+                    uri='https://www.facebook.com/ShuHPclub'
+                )
+            ]
+        )
     )
-    line_bot_api.reply_message(event.reply_token, message)
 
- 
+#回覆函式
 def Reply(event):
-    Ktmp = KeyWord(event.message.text)
-    if Ktmp[0]:
+    Ktemp = KeyWord(event)
+    if Ktemp[0]:
         line_bot_api.reply_message(event.reply_token,
-             TextSendMessage(text = Ktmp[1]))
+            TextSendMessage(text = Ktemp[1]))
     else:
         line_bot_api.reply_message(event.reply_token,
-             TextSendMessage(text = event.message.text))
+            Button(event))
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     try:
-        #Reply(event)
-        Button(event)
+        Reply(event)
     except Exception as e:
-        line_bot_api.reply_message(event.reply_token,
-             TextSendMessage(text=str(e)))
+        line_bot_api.reply_message(event.reply_token, 
+            TextSendMessage(text=str(e)))
 
 
 @handler.add(PostbackEvent)
