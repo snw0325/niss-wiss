@@ -46,43 +46,41 @@ def Button(event):
             thumbnail_image_url='https://github.com/snw0325/niss-wiss/blob/master/33a89ece71e46ed35f738321ec8d62fa1486014888.jpg?raw=true',
             title='標題',
             text='內容',
-             actions=[PostbackTemplateAction(label='按鈕文字',text='發話文字',data='夾帶資料'),
+             actions=[PostbackTemplateAction(label='按鈕文字',data='還沒'),
                 MessageTemplateAction(label='按鈕文字',text='發話文字'),
                 URITemplateAction(label='按鈕文字',uri='https://moba.garena.tw/game/props')]
          )
     )
     line_bot_api.reply_message(event.reply_token, message)
 
-
-#回覆函式
+ 
 def Reply(event):
-    Ktemp = KeyWord(event)
-    if Ktemp[0]:
+    Ktmp = KeyWord(event.message.text)
+    if Ktmp[0]:
         line_bot_api.reply_message(event.reply_token,
-            TextSendMessage(text = Ktemp[1]))
+             TextSendMessage(text = Ktmp[1]))
     else:
         line_bot_api.reply_message(event.reply_token,
-            Button(event))
+             TextSendMessage(text = event.message.text))
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     try:
-        Reply(event)
+        #Reply(event)
+        Button(event)
     except Exception as e:
-        line_bot_api.reply_message(event.reply_token, 
-            TextSendMessage(text=str(e)))
+        line_bot_api.reply_message(event.reply_token,
+             TextSendMessage(text=str(e)))
 
+import os
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
     command = enent.postback.data.split(",")
     if command[0] == "還沒":
         line_bot_api.reply_message(event.reply_token,
-            TextMessage(text="還沒就快去練習")) 
-
-        
-import os
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+            TextMessage(text="還沒就快去練習"))
