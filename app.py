@@ -84,3 +84,4 @@ def handle_postback(event):
     if command[0] == "還沒":
         line_bot_api.reply_message(event.reply_token,
             TextMessage(text="還沒就快去練習"))
+        line_bot_api.push_message(event.source.user_id, 訊息物件)
