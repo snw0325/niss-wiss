@@ -46,9 +46,9 @@ def Button(event):
             thumbnail_image_url='https://github.com/snw0325/niss-wiss/blob/master/33a89ece71e46ed35f738321ec8d62fa1486014888.jpg?raw=true',
             title='標題',
             text='內容',
-             actions=[PostbackTemplateAction(label='按鈕文字',data='還沒'),
-                MessageTemplateAction(label='按鈕文字',text='發話文字'),
-                URITemplateAction(label='按鈕文字',uri='https://moba.garena.tw/game/props')]
+             actions=[PostbackTemplateAction(label='坦裝',data='還沒'),
+                MessageTemplateAction(label='爆擊流',text='聖劍'),
+                URITemplateAction(label='全裝備網',uri='https://moba.garena.tw/game/props')]
          )
     )
     line_bot_api.reply_message(event.reply_token, message)
