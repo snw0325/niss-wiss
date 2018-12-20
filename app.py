@@ -87,6 +87,66 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, 
             TextSendMessage(text=str(e)))
 
+def Keyword(event):
+    KeyWordDict = {"你好":["text","你也好啊"],
+                   "你是誰":["text","我是大帥哥"],
+                   "差不多了":["text","讚!!!"],
+                   "帥":["sticker",'1','120']}
+
+    for k in KeyWordDict.keys():
+        if event.message.text.find(k) != -1:
+            if KeyWordDict[k][0] == "text":
+                line_bot_api.reply_message(event.reply_token,TextSendMessage(text = KeyWordDict[k][1]))
+            elif KeyWordDict[k][0] == "sticker":
+                line_bot_api.reply_message(event.reply_token,StickerSendMessage(
+                    package_id=KeyWordDict[k][1],
+                    sticker_id=KeyWordDict[k][2]))
+            return True
+    return False
+
+#按鈕版面系統
+def Button(event):
+    line_bot_api.reply_message(event.reply_token,
+        TemplateSendMessage(
+            alt_text='特殊訊息，請進入手機查看',
+            template=ButtonsTemplate(
+                thumbnail_image_url='https://github.com/54bp6cl6/LineBotClass/blob/master/logo.jpg?raw=true',
+                title='HPClub - Line Bot 教學',
+                text='大家學會了ㄇ',
+                actions=[
+                    PostbackTemplateAction(
+                        label='還沒',
+                        data='還沒'
+                    ),
+                    MessageTemplateAction(
+                        label='差不多了',
+                        text='差不多了'
+                    ),
+                    URITemplateAction(
+                        label='幫我們按個讚',
+                        uri='https://www.facebook.com/ShuHPclub'
+                    )
+                ]
+            )
+        )
+    )
+
+#指令系統，若觸發指令會回傳True
+def Command(event):
+    tempText = event.message.text.split(",")
+    if tempText[0] == "發送" and event.source.user_id == "U95418ebc4fffefdd89088d6f9dabd75b":
+        line_bot_api.push_message(tempText[1], TextSendMessage(text=tempText[2]))
+        return True
+    else:
+        return False
+
+#回覆函式，指令 > 關鍵字 > 按鈕
+def Reply(event):
+    if not Command(event):
+        if not Keyword(event):
+            Button(event)
+
+
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
