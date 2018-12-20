@@ -98,10 +98,6 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,
              TextSendMessage(text=str(e)))
 
-import os
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
@@ -119,3 +115,8 @@ def handle_sticker_message(event):
             package_id=event.message.package_id,
             sticker_id=event.message.sticker_id)
     )
+
+import os
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
