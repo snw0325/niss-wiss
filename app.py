@@ -110,3 +110,12 @@ def handle_postback(event):
         line_bot_api.reply_message(event.reply_token,
             TextMessage(text="還沒就快去練習"))
         line_bot_api.push_message(event.source.user_id, TextSendMessage(text="12345678"))
+
+@handler.add(MessageEvent, message=StickerMessage)
+def handle_sticker_message(event):
+    line_bot_api.reply_message(
+        event.reply_token,
+        StickerSendMessage(
+            package_id=event.message.package_id,
+            sticker_id=event.message.sticker_id)
+    )
